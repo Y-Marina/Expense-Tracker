@@ -1,6 +1,7 @@
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.compose)
+//    kotlin("kapt")
 }
 
 android {
@@ -48,6 +49,11 @@ dependencies {
     implementation(libs.androidx.compose.material3)
 
     implementation(libs.constraintlayout)
+
+    implementation(libs.room.runtime)
+    annotationProcessor(libs.room.compiler)
+//    kapt(libs.room.compiler)
+    implementation(libs.room.ktx)
 
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
