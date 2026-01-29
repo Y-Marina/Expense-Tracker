@@ -9,7 +9,8 @@ activityCompose = "1.12.2"
 kotlin = "2.0.21"
 composeBom = "2024.09.00"
 constraintlayout = "1.1.1"
-room_version = "2.6.1"
+room_version = "2.8.4"
+ksp = "2.3.1"
 
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
@@ -35,3 +36,5 @@ room-ktx = { group = "androidx.room", name = "room-ktx", version.ref = "room_ver
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }
 kotlin-compose = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "kotlin" }
+ksp = { id = "com.google.devtools.ksp", version.ref = "ksp" }
+#kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }

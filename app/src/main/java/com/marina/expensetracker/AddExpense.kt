@@ -22,27 +22,36 @@ import androidx.compose.material3.ExposedDropdownMenuBox
 import androidx.compose.material3.ExposedDropdownMenuDefaults
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Surface
-import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.material3.TextField
 import androidx.compose.material3.rememberDatePickerState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.constraintlayout.compose.ConstraintLayout
+import com.marina.expensetracker.data.model.ExpenseEntity
+import com.marina.expensetracker.viewmodel.AddExpenseViewModel
+import com.marina.expensetracker.viewmodel.AddExpenseViewModelFactory
 import com.marina.expensetracker.widget.ExpenseTextView
+import kotlinx.coroutines.launch
 
 @Composable
 fun AddExpense() {
+    val viewModel =
+        AddExpenseViewModelFactory(LocalContext.current).create(AddExpenseViewModel::class.java)
+    val coroutineScope = rememberCoroutineScope()
+
     Surface(modifier = Modifier.fillMaxSize()) {
         ConstraintLayout(modifier = Modifier.fillMaxSize()) {
             val (nameRow, list, card, topBar) = createRefs()
@@ -92,14 +101,19 @@ fun AddExpense() {
                         top.linkTo(nameRow.bottom)
                         start.linkTo(parent.start)
                         end.linkTo(parent.end)
+                    },
+                onAddExpenseClick = {
+                    coroutineScope.launch {
+                        viewModel.addExpense(it)
                     }
+                }
             )
         }
     }
 }
 
 @Composable
-fun DataForm(modifier: Modifier) {
+fun DataForm(modifier: Modifier, onAddExpenseClick: (model: ExpenseEntity) -> Unit) {
     val name = remember {
         mutableStateOf("")
     }
@@ -181,7 +195,17 @@ fun DataForm(modifier: Modifier) {
         Spacer(modifier = Modifier.size(8.dp))
 
         Button(
-            onClick = {},
+            onClick = {
+                val model = ExpenseEntity(
+                    id = 0,
+                    title = name.value,
+                    amount = amount.value.toDoubleOrNull() ?: 0.0,
+                    date = Utils.formatDateToHumanReadableForm(date.value),
+                    category = category.value,
+                    type = type.value
+                )
+                onAddExpenseClick(model)
+            },
             modifier = Modifier
                 .clip(RoundedCornerShape(2.dp))
                 .fillMaxWidth()
@@ -245,17 +269,17 @@ fun ExpenseDropDown(listOfItems: List<String>, onItemSelected: (item: String) ->
         expanded = expanded.value,
         onExpandedChange = { expanded.value = it }
     ) {
-        TextField(
-            value = selectedItem,
-            onValueChange = {},
-            modifier = Modifier
-                .fillMaxWidth()
-                .menuAnchor(),
-            readOnly = true,
-            trailingIcon = {
-                ExposedDropdownMenuDefaults.TrailingIcon(expanded = expanded.value)
-            }
-        )
+//        TextField(
+//            value = selectedItem,
+//            onValueChange = {},
+//            modifier = Modifier
+//                .fillMaxWidth()
+//                .menuAnchor(),
+//            readOnly = true,
+//            trailingIcon = {
+//                ExposedDropdownMenuDefaults.TrailingIcon(expanded = expanded.value)
+//            }
+//        )
         ExposedDropdownMenu(
             expanded = expanded.value,
             onDismissRequest = {}

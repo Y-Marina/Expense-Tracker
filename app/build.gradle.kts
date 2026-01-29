@@ -1,7 +1,8 @@
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.compose)
-//    kotlin("kapt")
+    alias(libs.plugins.ksp)
+//    alias(libs.plugins.kotlin.android)
 }
 
 android {
@@ -52,7 +53,7 @@ dependencies {
 
     implementation(libs.room.runtime)
     annotationProcessor(libs.room.compiler)
-//    kapt(libs.room.compiler)
+    ksp(libs.room.compiler)
     implementation(libs.room.ktx)
 
     testImplementation(libs.junit)
