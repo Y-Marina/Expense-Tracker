@@ -4,6 +4,7 @@ import android.content.Context
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.marina.expensetracker.R
+import com.marina.expensetracker.Utils
 import com.marina.expensetracker.data.ExpenseDataBase
 import com.marina.expensetracker.data.dao.ExpenseDao
 import com.marina.expensetracker.data.model.ExpenseEntity
@@ -12,15 +13,15 @@ class HomeViewModel(dao: ExpenseDao) : ViewModel() {
     val expenses = dao.getAllExpenses()
 
     fun getBalance(list: List<ExpenseEntity>): String {
-        var total = 0.0
+        var balance = 0.0
         list.forEach {
             if (it.type == "Income") {
-                total += it.amount
+                balance += it.amount
             } else {
-                total -= it.amount
+                balance -= it.amount
             }
         }
-        return "$total"
+        return Utils.formatToDecimalValue(balance)
     }
 
     fun getTotalExpense(list: List<ExpenseEntity>): String {
@@ -30,17 +31,17 @@ class HomeViewModel(dao: ExpenseDao) : ViewModel() {
                 total += it.amount
             }
         }
-        return "$total"
+        return Utils.formatToDecimalValue(total)
     }
 
     fun getTotalIncome(list: List<ExpenseEntity>): String {
-        var total = 0.0
+        var totalIncome = 0.0
         list.forEach {
             if (it.type == "Income") {
-                total += it.amount
+                totalIncome += it.amount
             }
         }
-        return "$total"
+        return Utils.formatToDecimalValue(totalIncome)
     }
 
     fun getItemIcon(item: ExpenseEntity): Int {

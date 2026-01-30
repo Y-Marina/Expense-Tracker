@@ -21,6 +21,7 @@ import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.ExposedDropdownMenuBox
 import androidx.compose.material3.ExposedDropdownMenuDefaults
 import androidx.compose.material3.OutlinedTextField
+import androidx.compose.material3.OutlinedTextFieldDefaults
 import androidx.compose.material3.Surface
 import androidx.compose.material3.TextButton
 import androidx.compose.material3.TextField
@@ -40,6 +41,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.constraintlayout.compose.ConstraintLayout
+import androidx.navigation.NavController
 import com.marina.expensetracker.data.model.ExpenseEntity
 import com.marina.expensetracker.viewmodel.AddExpenseViewModel
 import com.marina.expensetracker.viewmodel.AddExpenseViewModelFactory
@@ -47,7 +49,7 @@ import com.marina.expensetracker.widget.ExpenseTextView
 import kotlinx.coroutines.launch
 
 @Composable
-fun AddExpense() {
+fun AddExpense(navController: NavController) {
     val viewModel =
         AddExpenseViewModelFactory(LocalContext.current).create(AddExpenseViewModel::class.java)
     val coroutineScope = rememberCoroutineScope()
@@ -104,7 +106,9 @@ fun AddExpense() {
                     },
                 onAddExpenseClick = {
                     coroutineScope.launch {
-                        viewModel.addExpense(it)
+                        if (viewModel.addExpense(it)) {
+                            navController.popBackStack()
+                        }
                     }
                 }
             )
@@ -172,7 +176,11 @@ fun DataForm(modifier: Modifier, onAddExpenseClick: (model: ExpenseEntity) -> Un
             modifier = Modifier
                 .fillMaxWidth()
                 .clickable { dateDialogVisibility.value = true },
-            enabled = false
+            enabled = false,
+            colors = OutlinedTextFieldDefaults.colors(
+                disabledBorderColor = Color.Black,
+                disabledTextColor = Color.Black
+            )
         )
         Spacer(modifier = Modifier.size(8.dp))
 

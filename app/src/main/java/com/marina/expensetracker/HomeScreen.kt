@@ -2,6 +2,7 @@ package com.marina.expensetracker
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -13,6 +14,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
@@ -29,6 +31,8 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.constraintlayout.compose.ConstraintLayout
 import androidx.constraintlayout.compose.Dimension
+import androidx.navigation.NavController
+import androidx.navigation.compose.rememberNavController
 import com.marina.expensetracker.data.model.ExpenseEntity
 import com.marina.expensetracker.ui.theme.ExpenseTrackerTheme
 import com.marina.expensetracker.ui.theme.Zinc
@@ -37,13 +41,13 @@ import com.marina.expensetracker.viewmodel.HomeViewModelFactory
 import com.marina.expensetracker.widget.ExpenseTextView
 
 @Composable
-fun HomeScreen() {
+fun HomeScreen(navController: NavController) {
     val viewModel: HomeViewModel =
         HomeViewModelFactory(LocalContext.current).create(HomeViewModel::class.java)
 
     Surface(modifier = Modifier.fillMaxSize()) {
         ConstraintLayout(modifier = Modifier.fillMaxSize()) {
-            val (nameRow, list, card, topBar) = createRefs()
+            val (nameRow, list, card, topBar, add) = createRefs()
             Image(
                 painter = painterResource(id = R.drawable.ic_topbar),
                 contentDescription = null,
@@ -106,6 +110,20 @@ fun HomeScreen() {
                 list = state.value,
                 viewModel = viewModel
             )
+            Image(
+                painter = painterResource(id = R.drawable.ic_addbutton),
+                contentDescription = null,
+                modifier = Modifier
+                    .constrainAs(add) {
+                    bottom.linkTo(parent.bottom)
+                    end.linkTo(parent.end)
+                }
+                    .size(48.dp)
+                    .clip(CircleShape)
+                    .clickable {
+                        navController.navigate("/add")
+                    }
+                )
         }
     }
 }
@@ -181,7 +199,7 @@ fun TransactionList(modifier: Modifier, list: List<ExpenseEntity>, viewModel: Ho
                 title = item.title!!,
                 amount = item.amount.toString(),
                 icon = viewModel.getItemIcon(item),
-                date = item.date.toString(),
+                date = item.date,
                 color = if (item.type == "Income") Color.Green else Color.Red
             )
         }
@@ -236,6 +254,6 @@ fun TransactionItem(title: String, amount: String, icon: Int, date: String, colo
 @Composable
 fun PreviewHomeScreen() {
     ExpenseTrackerTheme {
-        HomeScreen()
+        HomeScreen(rememberNavController())
     }
 }
