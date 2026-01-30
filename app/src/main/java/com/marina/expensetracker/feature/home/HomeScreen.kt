@@ -1,4 +1,4 @@
-package com.marina.expensetracker
+package com.marina.expensetracker.feature.home
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
@@ -33,6 +33,7 @@ import androidx.constraintlayout.compose.ConstraintLayout
 import androidx.constraintlayout.compose.Dimension
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
+import com.marina.expensetracker.R
 import com.marina.expensetracker.data.model.ExpenseEntity
 import com.marina.expensetracker.ui.theme.ExpenseTrackerTheme
 import com.marina.expensetracker.ui.theme.Zinc
