@@ -3,6 +3,7 @@ plugins {
     alias(libs.plugins.kotlin.compose)
     alias(libs.plugins.ksp)
 //    alias(libs.plugins.kotlin.android)
+    alias(libs.plugins.dagger.hilt)
 }
 
 android {
@@ -49,7 +50,8 @@ dependencies {
     implementation(libs.androidx.compose.ui.tooling.preview)
     implementation(libs.androidx.compose.material3)
 
-    implementation(libs.constraintlayout)
+    implementation(libs.constraint.layout.compose)
+    implementation(libs.constraint.layout)
 
     implementation(libs.room.runtime)
     annotationProcessor(libs.room.compiler)
@@ -59,6 +61,10 @@ dependencies {
     implementation(libs.navigation.compose)
 
     implementation("com.github.PhilJay:MPAndroidChart:v3.1.0")
+
+    implementation(libs.dagger.hilt.andriod)
+    ksp(libs.dagger.hilt.compiler)
+    implementation(libs.dagger.hilt.compose)
 
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)

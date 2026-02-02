@@ -5,9 +5,22 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.marina.expensetracker.data.ExpenseDataBase
 import com.marina.expensetracker.data.dao.ExpenseDao
+import com.github.mikephil.charting.data.Entry
+import com.marina.expensetracker.Utils
+import com.marina.expensetracker.data.model.ExpenseSummary
 
 class StatsViewModel(dao: ExpenseDao) : ViewModel() {
+    val entries = dao.getAllExpensesByDate()
+    val topEntries = dao.getTopExpenses()
 
+    fun getEntriesForChart(entries: List<ExpenseSummary>): List<Entry> {
+        val list = mutableListOf<Entry>()
+        for (entry in entries) {
+            val formattedDate = Utils.getMilliFromDate(entry.date)
+            list.add(Entry(formattedDate.toFloat(), entry.total_amount.toFloat()))
+        }
+        return list
+    }
 }
 
 class StatsViewModelFactory(private val context: Context) : ViewModelProvider.Factory {

@@ -34,6 +34,7 @@ import androidx.constraintlayout.compose.Dimension
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import com.marina.expensetracker.R
+import com.marina.expensetracker.Utils
 import com.marina.expensetracker.data.model.ExpenseEntity
 import com.marina.expensetracker.ui.theme.ExpenseTrackerTheme
 import com.marina.expensetracker.ui.theme.Zinc
@@ -108,23 +109,22 @@ fun HomeScreen(navController: NavController) {
                         bottom.linkTo(parent.bottom)
                         height = Dimension.fillToConstraints
                     },
-                list = state.value,
-                viewModel = viewModel
+                list = state.value
             )
             Image(
                 painter = painterResource(id = R.drawable.ic_addbutton),
                 contentDescription = null,
                 modifier = Modifier
                     .constrainAs(add) {
-                    bottom.linkTo(parent.bottom)
-                    end.linkTo(parent.end)
-                }
+                        bottom.linkTo(parent.bottom)
+                        end.linkTo(parent.end)
+                    }
                     .size(48.dp)
                     .clip(CircleShape)
                     .clickable {
                         navController.navigate("/add")
                     }
-                )
+            )
         }
     }
 }
@@ -183,23 +183,29 @@ fun CardItem(modifier: Modifier, balance: String, income: String, expenses: Stri
 }
 
 @Composable
-fun TransactionList(modifier: Modifier, list: List<ExpenseEntity>, viewModel: HomeViewModel) {
+fun TransactionList(
+    modifier: Modifier,
+    list: List<ExpenseEntity>,
+    title: String = "Resent Transactions"
+) {
     LazyColumn(modifier = modifier.padding(horizontal = 16.dp)) {
         item {
             Box(modifier = Modifier.fillMaxWidth()) {
-                ExpenseTextView(text = "Resent Transactions", fontSize = 20.sp)
-                ExpenseTextView(
-                    text = "See All",
-                    fontSize = 16.sp,
-                    modifier = Modifier.align(Alignment.CenterEnd)
-                )
+                ExpenseTextView(text = title, fontSize = 20.sp)
+                if (title == "Resent Transactions") {
+                    ExpenseTextView(
+                        text = "See All",
+                        fontSize = 16.sp,
+                        modifier = Modifier.align(Alignment.CenterEnd)
+                    )
+                }
             }
         }
         items(list) { item ->
             TransactionItem(
                 title = item.title!!,
                 amount = item.amount.toString(),
-                icon = viewModel.getItemIcon(item),
+                icon = Utils.getItemIcon(item),
                 date = item.date,
                 color = if (item.type == "Income") Color.Green else Color.Red
             )
