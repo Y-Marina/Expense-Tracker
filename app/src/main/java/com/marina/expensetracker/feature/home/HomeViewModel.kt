@@ -1,15 +1,14 @@
-package com.marina.expensetracker.viewmodel
+package com.marina.expensetracker.feature.home
 
-import android.content.Context
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.ViewModelProvider
-import com.marina.expensetracker.R
 import com.marina.expensetracker.Utils
-import com.marina.expensetracker.data.ExpenseDataBase
 import com.marina.expensetracker.data.dao.ExpenseDao
 import com.marina.expensetracker.data.model.ExpenseEntity
+import dagger.hilt.android.lifecycle.HiltViewModel
+import javax.inject.Inject
 
-class HomeViewModel(dao: ExpenseDao) : ViewModel() {
+@HiltViewModel
+class HomeViewModel @Inject constructor(dao: ExpenseDao) : ViewModel() {
     val expenses = dao.getAllExpenses()
 
     fun getBalance(list: List<ExpenseEntity>): String {
@@ -42,16 +41,5 @@ class HomeViewModel(dao: ExpenseDao) : ViewModel() {
             }
         }
         return Utils.formatToDecimalValue(totalIncome)
-    }
-}
-
-class HomeViewModelFactory(private val context: Context) : ViewModelProvider.Factory {
-    override fun <T : ViewModel> create(modelClass: Class<T>): T {
-        if (modelClass.isAssignableFrom(HomeViewModel::class.java)) {
-            val dao = ExpenseDataBase.getDatabase(context).expenseDao()
-            @Suppress("UNCHECKED_CAST")
-            return HomeViewModel(dao) as T
-        }
-        throw IllegalArgumentException("Unknown ViewModel class")
     }
 }

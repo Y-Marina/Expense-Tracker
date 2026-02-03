@@ -23,7 +23,6 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
@@ -31,6 +30,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.constraintlayout.compose.ConstraintLayout
 import androidx.constraintlayout.compose.Dimension
+import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import com.marina.expensetracker.R
@@ -38,15 +38,10 @@ import com.marina.expensetracker.Utils
 import com.marina.expensetracker.data.model.ExpenseEntity
 import com.marina.expensetracker.ui.theme.ExpenseTrackerTheme
 import com.marina.expensetracker.ui.theme.Zinc
-import com.marina.expensetracker.viewmodel.HomeViewModel
-import com.marina.expensetracker.viewmodel.HomeViewModelFactory
 import com.marina.expensetracker.widget.ExpenseTextView
 
 @Composable
-fun HomeScreen(navController: NavController) {
-    val viewModel: HomeViewModel =
-        HomeViewModelFactory(LocalContext.current).create(HomeViewModel::class.java)
-
+fun HomeScreen(navController: NavController, viewModel: HomeViewModel = hiltViewModel()) {
     Surface(modifier = Modifier.fillMaxSize()) {
         ConstraintLayout(modifier = Modifier.fillMaxSize()) {
             val (nameRow, list, card, topBar, add) = createRefs()

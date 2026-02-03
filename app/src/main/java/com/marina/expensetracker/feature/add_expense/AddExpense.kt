@@ -33,25 +33,21 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.constraintlayout.compose.ConstraintLayout
+import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import androidx.navigation.NavController
 import com.marina.expensetracker.R
 import com.marina.expensetracker.Utils
 import com.marina.expensetracker.data.model.ExpenseEntity
-import com.marina.expensetracker.viewmodel.AddExpenseViewModel
-import com.marina.expensetracker.viewmodel.AddExpenseViewModelFactory
 import com.marina.expensetracker.widget.ExpenseTextView
 import kotlinx.coroutines.launch
 
 @Composable
-fun AddExpense(navController: NavController) {
-    val viewModel =
-        AddExpenseViewModelFactory(LocalContext.current).create(AddExpenseViewModel::class.java)
+fun AddExpense(navController: NavController, viewModel: AddExpenseViewModel = hiltViewModel()) {
     val coroutineScope = rememberCoroutineScope()
 
     Surface(modifier = Modifier.fillMaxSize()) {

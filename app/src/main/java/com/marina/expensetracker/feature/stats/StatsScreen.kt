@@ -23,6 +23,7 @@ import androidx.compose.ui.unit.sp
 import androidx.compose.ui.viewinterop.AndroidView
 import androidx.core.content.ContextCompat
 import androidx.core.graphics.toColorInt
+import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import androidx.navigation.NavController
 import com.github.mikephil.charting.charts.LineChart
 import com.github.mikephil.charting.components.XAxis
@@ -33,12 +34,10 @@ import com.github.mikephil.charting.formatter.ValueFormatter
 import com.marina.expensetracker.R
 import com.marina.expensetracker.Utils
 import com.marina.expensetracker.feature.home.TransactionList
-import com.marina.expensetracker.viewmodel.StatsViewModel
-import com.marina.expensetracker.viewmodel.StatsViewModelFactory
 import com.marina.expensetracker.widget.ExpenseTextView
 
 @Composable
-fun StatsScreen(navController: NavController) {
+fun StatsScreen(navController: NavController, viewModel: StatsViewModel = hiltViewModel()) {
     Scaffold(
         topBar = {
             Box(
@@ -69,8 +68,6 @@ fun StatsScreen(navController: NavController) {
             }
         }
     ) {
-        val viewModel =
-            StatsViewModelFactory(navController.context).create(StatsViewModel::class.java)
         val dataState = viewModel.entries.collectAsState(emptyList())
         val topExpense = viewModel.topEntries.collectAsState(emptyList())
 

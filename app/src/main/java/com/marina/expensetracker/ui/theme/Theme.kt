@@ -1,6 +1,5 @@
 package com.marina.expensetracker.ui.theme
 
-import android.app.Activity
 import android.os.Build
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.material3.MaterialTheme
@@ -12,16 +11,18 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.platform.LocalContext
 
 private val DarkColorScheme = darkColorScheme(
-    primary = Purple80,
-    secondary = PurpleGrey80,
-    tertiary = Pink80
+    primary = ThemeColors.Night.primary,
+    secondary = ThemeColors.Night.secondary,
+    tertiary = ThemeColors.Night.tertiary,
+    onPrimary = ThemeColors.Night.text,
+    outline = ThemeColors.Night.text
 )
 
 private val LightColorScheme = lightColorScheme(
-    primary = Purple40,
-    secondary = PurpleGrey40,
-    tertiary = Pink40
-
+    primary = ThemeColors.Day.primary,
+    secondary = ThemeColors.Day.secondary,
+    tertiary = ThemeColors.Day.tertiary,
+    onPrimary = ThemeColors.Day.text
     /* Other default colors to override
     background = Color(0xFFFFFBFE),
     surface = Color(0xFFFFFBFE),
