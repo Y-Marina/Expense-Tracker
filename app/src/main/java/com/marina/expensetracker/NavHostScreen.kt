@@ -57,7 +57,7 @@ fun NavHostScreen() {
 
             composable(route = "/add") {
                 bottomBarVisibility = false
-                AddExpense(navController)
+                AddExpense(navController = navController, isIncome = false)
             }
 
             composable(route = "/stats") {
