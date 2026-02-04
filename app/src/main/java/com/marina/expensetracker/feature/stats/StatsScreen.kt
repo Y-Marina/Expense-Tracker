@@ -2,12 +2,14 @@ package com.marina.expensetracker.feature.stats
 
 import android.view.LayoutInflater
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
@@ -46,10 +48,14 @@ fun StatsScreen(navController: NavController, viewModel: StatsViewModel = hiltVi
                     .padding(top = 16.dp, start = 16.dp, end = 16.dp, bottom = 8.dp)
             ) {
                 Image(
-                    painter = painterResource(id = R.drawable.chevron_left),
+                    painter = painterResource(id = R.drawable.ic_back),
                     contentDescription = null,
-                    modifier = Modifier.align(Alignment.CenterStart),
-                    colorFilter = ColorFilter.tint(Color.Black)
+                    modifier = Modifier
+                        .align(Alignment.CenterStart)
+                        .clickable {
+                            navController.navigateUp()
+                        },
+                    colorFilter = ColorFilter.tint(MaterialTheme.colorScheme.outline)
                 )
                 ExpenseTextView(
                     text = "Statistics",
@@ -75,7 +81,12 @@ fun StatsScreen(navController: NavController, viewModel: StatsViewModel = hiltVi
             val entries = viewModel.getEntriesForChart(dataState.value)
             LineChart(entries = entries as Entry)
             Spacer(modifier = Modifier.height(16.dp))
-            TransactionList(modifier = Modifier, list = topExpense.value, title = "Top Spending")
+            TransactionList(
+                modifier = Modifier,
+                list = topExpense.value,
+                title = "Top Spending",
+                onSeeAllClicked = {}
+            )
         }
     }
 }
@@ -93,6 +104,7 @@ fun LineChart(entries: Entry) {
             .height(250.dp)
     ) { view ->
         val lineChart = view.findViewById<LineChart>(R.id.lineChart)
+
         val dataSet = LineDataSet(entries as List<Entry?>?, "Expenses").apply {
             color = "#FF2F7E79".toColorInt()
             valueTextColor = android.graphics.Color.BLACK
