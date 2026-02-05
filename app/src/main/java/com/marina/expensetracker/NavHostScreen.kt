@@ -23,6 +23,7 @@ import androidx.navigation.compose.rememberNavController
 import com.marina.expensetracker.feature.add_expense.AddExpense
 import com.marina.expensetracker.feature.home.HomeScreen
 import com.marina.expensetracker.feature.stats.StatsScreen
+import com.marina.expensetracker.feature.transactionlist.TransactionListScreen
 import com.marina.expensetracker.ui.theme.Zinc
 
 @Composable
@@ -55,7 +56,12 @@ fun NavHostScreen() {
                 HomeScreen(navController)
             }
 
-            composable(route = "/add") {
+            composable(route = "/add_income") {
+                bottomBarVisibility = false
+                AddExpense(navController = navController, isIncome = true)
+            }
+
+            composable(route = "/add_exp") {
                 bottomBarVisibility = false
                 AddExpense(navController = navController, isIncome = false)
             }
@@ -63,6 +69,11 @@ fun NavHostScreen() {
             composable(route = "/stats") {
                 bottomBarVisibility = true
                 StatsScreen(navController)
+            }
+
+            composable(route = "/all_transactions") {
+                bottomBarVisibility = true
+                TransactionListScreen(navController)
             }
         }
     }
