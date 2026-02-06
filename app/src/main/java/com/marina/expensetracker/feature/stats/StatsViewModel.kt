@@ -1,7 +1,7 @@
 package com.marina.expensetracker.feature.stats
 
 import com.github.mikephil.charting.data.Entry
-import com.marina.expensetracker.Utils
+import com.marina.expensetracker.utils.Utils
 import com.marina.expensetracker.base.BaseViewModel
 import com.marina.expensetracker.base.UiEvent
 import com.marina.expensetracker.data.dao.ExpenseDao

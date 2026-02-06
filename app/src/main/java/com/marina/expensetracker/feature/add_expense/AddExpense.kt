@@ -50,7 +50,7 @@ import androidx.constraintlayout.compose.ConstraintLayout
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import androidx.navigation.NavController
 import com.marina.expensetracker.R
-import com.marina.expensetracker.Utils
+import com.marina.expensetracker.utils.Utils
 import com.marina.expensetracker.base.AddExpenseNavigationEvent
 import com.marina.expensetracker.base.NavigationEvent
 import com.marina.expensetracker.data.model.ExpenseEntity

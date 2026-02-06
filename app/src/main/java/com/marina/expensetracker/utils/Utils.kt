@@ -1,5 +1,6 @@
-package com.marina.expensetracker
+package com.marina.expensetracker.utils
 
+import com.marina.expensetracker.R
 import com.marina.expensetracker.data.model.ExpenseEntity
 import java.text.NumberFormat
 import java.text.ParseException

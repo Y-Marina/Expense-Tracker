@@ -1,7 +1,7 @@
 package com.marina.expensetracker.feature.home
 
 import androidx.lifecycle.viewModelScope
-import com.marina.expensetracker.Utils
+import com.marina.expensetracker.utils.Utils
 import com.marina.expensetracker.base.BaseViewModel
 import com.marina.expensetracker.base.HomeNavigationEvent
 import com.marina.expensetracker.base.UiEvent

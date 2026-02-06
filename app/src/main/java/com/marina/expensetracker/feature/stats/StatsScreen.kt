@@ -34,7 +34,7 @@ import com.github.mikephil.charting.data.Entry
 import com.github.mikephil.charting.data.LineDataSet
 import com.github.mikephil.charting.formatter.ValueFormatter
 import com.marina.expensetracker.R
-import com.marina.expensetracker.Utils
+import com.marina.expensetracker.utils.Utils
 import com.marina.expensetracker.feature.home.TransactionList
 import com.marina.expensetracker.widget.ExpenseTextView
 
