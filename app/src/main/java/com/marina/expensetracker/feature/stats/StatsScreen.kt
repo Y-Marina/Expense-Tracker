@@ -68,7 +68,7 @@ fun StatsScreen(navController: NavController, viewModel: StatsViewModel = hiltVi
                 Image(
                     painter = painterResource(id = R.drawable.dots_menu),
                     contentDescription = null,
-                    modifier = Modifier.align(Alignment.Center),
+                    modifier = Modifier.align(Alignment.CenterEnd),
                     colorFilter = ColorFilter.tint(Color.Black)
                 )
             }
@@ -79,7 +79,7 @@ fun StatsScreen(navController: NavController, viewModel: StatsViewModel = hiltVi
 
         Column(modifier = Modifier.padding(it)) {
             val entries = viewModel.getEntriesForChart(dataState.value)
-            LineChart(entries = entries as Entry)
+            LineChart(entries = entries)
             Spacer(modifier = Modifier.height(16.dp))
             TransactionList(
                 modifier = Modifier,
@@ -92,7 +92,7 @@ fun StatsScreen(navController: NavController, viewModel: StatsViewModel = hiltVi
 }
 
 @Composable
-fun LineChart(entries: Entry) {
+fun LineChart(entries: List<Entry>) {
     val context = LocalContext.current
     AndroidView(
         factory = {
@@ -105,7 +105,7 @@ fun LineChart(entries: Entry) {
     ) { view ->
         val lineChart = view.findViewById<LineChart>(R.id.lineChart)
 
-        val dataSet = LineDataSet(entries as List<Entry?>?, "Expenses").apply {
+        val dataSet = LineDataSet(entries, "Expenses").apply {
             color = "#FF2F7E79".toColorInt()
             valueTextColor = android.graphics.Color.BLACK
             lineWidth = 3f

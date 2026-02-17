@@ -34,10 +34,10 @@ import androidx.compose.ui.unit.sp
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import androidx.navigation.NavController
 import com.marina.expensetracker.R
-import com.marina.expensetracker.utils.Utils
 import com.marina.expensetracker.feature.add_expense.ExpenseDropDown
 import com.marina.expensetracker.feature.home.HomeViewModel
 import com.marina.expensetracker.feature.home.TransactionItem
+import com.marina.expensetracker.utils.Utils
 import com.marina.expensetracker.widget.ExpenseTextView
 
 @OptIn(ExperimentalFoundationApi::class)
@@ -146,10 +146,10 @@ fun TransactionListScreen(
                     TransactionItem(
                         title = item.title,
                         amount = item.amount.toString(),
-                        icon = icon!!,
+                        icon = icon,
                         date = item.date,
                         color = if (item.type == "Income") Color.Green else Color.Red,
-                        modifier = Modifier.animateItemPlacement(tween(100))
+                        modifier = Modifier.animateItem(fadeInSpec = null, fadeOutSpec = null, placementSpec = tween(500))
                     )
                 }
             }

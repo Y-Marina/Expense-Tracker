@@ -71,6 +71,7 @@ fun AddExpense(
         viewModel.navigationEvent.collect { event ->
             when (event) {
                 NavigationEvent.NavigateBack -> navController.popBackStack()
+
                 AddExpenseNavigationEvent.MenuOpenedClicked -> {
                     menuExpanded.value = true
                 }
@@ -277,10 +278,9 @@ fun DataForm(
         Button(
             onClick = {
                 val model = ExpenseEntity(
-                    id = 0,
                     title = name.value,
                     amount = amount.value.toDoubleOrNull() ?: 0.0,
-                    date = Utils.formatDateToHumanReadableForm(date.value),
+                    date = Utils.formatDateToHumanReadableForm(date.longValue),
                     type = type.value
                 )
                 onAddExpenseClick(model)

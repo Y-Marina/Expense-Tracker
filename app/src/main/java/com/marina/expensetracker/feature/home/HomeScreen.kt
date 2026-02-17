@@ -61,7 +61,7 @@ fun HomeScreen(navController: NavController, viewModel: HomeViewModel = hiltView
                 NavigationEvent.NavigateBack -> navController.popBackStack()
 
                 HomeNavigationEvent.NavigateToSeeAll -> {
-                    navController.navigate("/all_income")
+                    navController.navigate("/all_transactions")
                 }
 
                 HomeNavigationEvent.NavigateToAddIncome -> {
