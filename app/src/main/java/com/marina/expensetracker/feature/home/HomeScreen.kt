@@ -41,7 +41,6 @@ import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import com.marina.expensetracker.R
-import com.marina.expensetracker.utils.Utils
 import com.marina.expensetracker.base.HomeNavigationEvent
 import com.marina.expensetracker.base.NavigationEvent
 import com.marina.expensetracker.data.model.ExpenseEntity
@@ -51,6 +50,7 @@ import com.marina.expensetracker.ui.theme.LightGrey
 import com.marina.expensetracker.ui.theme.Red
 import com.marina.expensetracker.ui.theme.Typography
 import com.marina.expensetracker.ui.theme.Zinc
+import com.marina.expensetracker.utils.Utils
 import com.marina.expensetracker.widget.ExpenseTextView
 
 @Composable
@@ -101,7 +101,7 @@ fun HomeScreen(navController: NavController, viewModel: HomeViewModel = hiltView
             ) {
                 Column(modifier = Modifier.align(Alignment.CenterStart)) {
                     ExpenseTextView(
-                        text = "Good Afternoon",
+                        text = "Good Afternoon,",
                         style = Typography.bodyMedium,
                         color = Color.White
                     )
