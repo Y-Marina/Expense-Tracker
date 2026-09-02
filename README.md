@@ -5,10 +5,15 @@
 
 ## стек:
 Kotlin
+
 Jetpack Compose
+
 MVVM Architecture
+
 Room Database
+
 Dagger Hilt
+
 Navigation Compose
 
 ## [apk для установки](/expense_tracker.apk)
