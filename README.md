@@ -11,4 +11,4 @@ Room Database
 Dagger Hilt
 Navigation Compose
 
-[apk для установки]()
+[apk для установки](expense_traker.apk)
