@@ -13,3 +13,4 @@ Navigation Compose
 
 ## [apk для установки](/expense_tracker.apk)
 
+![demo](demo.gif)
