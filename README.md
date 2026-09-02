@@ -12,4 +12,3 @@ Dagger Hilt
 Navigation Compose
 
 [apk для установки]()
-
